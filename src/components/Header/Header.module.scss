@@ -1,0 +1,48 @@
+@import "../../../styles/global.scss";
+
+.Header {
+  display: flex;
+  align-items: stretch;
+  background-color: $dark-color;
+  color: $header-text-color;
+  height: $header-height;
+  font-weight: bold;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__homelink {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.Homelink,
+.Settings__link {
+  color: $header-text-color;
+  text-decoration: none;
+
+  &:hover {
+    color: $header-text-color;
+  }
+}
+
+.Homelink {
+  &__text {
+    margin-left: 10px;
+  }
+}
+
+.Settings {
+  &__link {
+    display: flex;
+    align-items: center;
+  }
+
+  &__text {
+    margin-right: 10px;
+  }
+}

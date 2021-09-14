@@ -1,0 +1,15 @@
+@import "./global.scss";
+
+.SettingsPage {
+  color: #fff;
+  background-color: #012626;
+  height: calc(100vh - 60px);
+}
+
+.Table {
+  color: #fff;
+
+  &__column-header {
+    border-color: $light-color !important;
+  }
+}

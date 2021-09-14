@@ -1,0 +1,7 @@
+@import "./global.scss";
+
+.HomePage {
+  color: #fff;
+  background-color: $medium-dark-color;
+  height: calc(100vh - #{$header-height});
+}

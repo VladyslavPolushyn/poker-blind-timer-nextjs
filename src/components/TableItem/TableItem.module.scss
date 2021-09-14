@@ -1,0 +1,24 @@
+@import "./../../../styles/global.scss";
+
+.TableItem {
+  font-weight: bold;
+
+  &:hover &__input {
+    background-color: $pre-medium-dark-color;
+  }
+
+  &__cell {
+    border-color: $light-color;
+  }
+
+  &__input {
+    font-weight: bold;
+    color: #fff;
+    outline: none;
+    background-color: $medium-dark-color;
+    border-radius: 2px;
+    border: 1px solid $dark-color;
+    transition: $transition-time;
+    text-align: center;
+  }
+}
