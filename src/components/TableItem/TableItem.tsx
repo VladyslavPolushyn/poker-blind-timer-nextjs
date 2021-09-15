@@ -12,6 +12,7 @@ const TableItem: FC<TableItemProps> = ({
 }) => {
   // need to set round number to state from props and return it to tableData state
   const [roundState, setRoundState] = useState({
+    round,
     sb,
     bb,
     ante,
