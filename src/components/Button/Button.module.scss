@@ -1,0 +1,14 @@
+@import '../../../styles/global.scss';
+
+.Button {
+  display: block;
+  margin-left: auto;
+  font-weight: bold;
+  color: $dark-color;
+  background-color: $header-text-color;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  padding: 10px 20px;
+  transition: $transition-time;
+}
