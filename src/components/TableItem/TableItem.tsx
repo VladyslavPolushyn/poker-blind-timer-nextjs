@@ -1,94 +1,87 @@
-import React, { FC, useEffect, useState } from "react";
-import styles from "./TableItem.module.scss";
-import { TableItemProps } from "../../types";
+import React, { FC } from 'react';
+import styles from './TableItem.module.scss';
+import { TableData } from '../../types';
+import { changeRound, deleteRound } from '../../store/actions';
+import { useDispatch } from 'react-redux';
+import Image from 'next/image';
 
-const TableItem: FC<TableItemProps> = ({
-  round,
-  sb,
-  bb,
-  ante,
-  roundTime,
-  onInputChangeHandler,
-}) => {
-  // need to set round number to state from props and return it to tableData state
-  const [roundState, setRoundState] = useState({
+const TableItem: FC<TableData> = (props) => {
+  const dispatch = useDispatch();
+
+  const {
     round,
     sb,
     bb,
     ante,
     roundTime,
-  });
+  } = props;
 
-  const inputChangeHandler = (value: number, changedField: string) => {
+  const inputChangeHandler = (value: string, changedField: string) => {
+    value = value.replace(/[^\d]/g, '');
+
     switch (changedField) {
-      case "sb":
-        setRoundState({ ...roundState, sb: value });
+      case 'sb':
+        dispatch(changeRound({ round, bb, ante, roundTime, sb: +value }));
         break;
-      case "bb":
-        setRoundState({ ...roundState, bb: value });
+      case 'bb':
+        dispatch(changeRound({ round, bb: +value, ante, roundTime, sb }));
         break;
-      case "ante":
-        setRoundState({ ...roundState, ante: value });
+      case 'ante':
+        dispatch(changeRound({ round, bb, ante: +value, roundTime, sb }));
         break;
-      case "roundTime":
-        setRoundState({ ...roundState, roundTime: value });
+      case 'roundTime':
+        dispatch(changeRound({ round, bb, ante, roundTime: +value, sb }));
         break;
       default:
-        console.log("Sorry, we are out of " + changedField + ".");
+        console.log('Sorry, we are out of ' + changedField + '.');
     }
   };
 
-  useEffect(() => {
-    onInputChangeHandler(roundState);
-  }, [roundState]);
+  const onDeleteHandler = (itemToDeleteNumber: number) => {
+    dispatch(deleteRound(itemToDeleteNumber));
+  };
 
   return (
     <tr className={styles.TableItem}>
       <td className={styles.TableItem__cell}>{round}</td>
       <td className={styles.TableItem__cell}>
         <input
-          className={`${styles.TableItem__input} ${styles["TableItem__input--sb"]}`}
-          type="number"
-          value={roundState.sb}
-          min={0}
-          max={1000000}
-          onChange={(event) => inputChangeHandler(+event.target.value, "sb")}
+          className={`${styles.TableItem__input} ${styles['TableItem__input--sb']}`}
+          type="text"
+          value={sb}
+          onChange={(event) => inputChangeHandler(event.target.value, 'sb')}
         />
       </td>
       <td className={styles.TableItem__cell}>
         <input
-          className={`${styles.TableItem__input} ${styles["TableItem__input--bb"]}`}
-          type="number"
-          value={roundState.bb}
-          min={0}
-          max={1000000}
-          onChange={(event) => inputChangeHandler(+event.target.value, "bb")}
+          className={`${styles.TableItem__input} ${styles['TableItem__input--bb']}`}
+          type="text"
+          value={bb}
+          onChange={(event) => inputChangeHandler(event.target.value, 'bb')}
         />
       </td>
       <td className={styles.TableItem__cell}>
         <input
-          className={`${styles.TableItem__input} ${styles["TableItem__input--ante"]}`}
-          type="number"
-          value={roundState.ante}
-          min={0}
-          max={1000000}
-          onChange={(event) => inputChangeHandler(+event.target.value, "ante")}
+          className={`${styles.TableItem__input} ${styles['TableItem__input--ante']}`}
+          type="text"
+          value={ante}
+          onChange={(event) => inputChangeHandler(event.target.value, 'ante')}
         />
       </td>
       <td className={styles.TableItem__cell}>
         <input
-          className={`${styles.TableItem__input} ${styles["TableItem__input--round-time"]}`}
-          type="number"
-          min={0}
-          max={60}
-          value={roundState.roundTime}
+          className={`${styles.TableItem__input} ${styles['TableItem__input--round-time']}`}
+          type="text"
+          value={roundTime}
           onChange={(event) =>
-            inputChangeHandler(+event.target.value, "roundTime")
+            inputChangeHandler(event.target.value, 'roundTime')
           }
         />
       </td>
       <td className={styles.TableItem__cell}>
-        <button>Delete</button>
+        <button onClick={() => onDeleteHandler(round - 1)} className={styles['TableItem__delete-button']}>
+          <Image src="/close.svg" alt="Close" width={18} height={18} />
+        </button>
       </td>
     </tr>
   );
