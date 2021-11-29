@@ -4,15 +4,21 @@ import { useTimer } from 'react-timer-hook';
 
 type TimerProps = {
   expiryTimestamp: Date;
+  currentRound: number;
 };
 
 const Timer = (props: TimerProps) => {
-  const { expiryTimestamp } = props;
+  const { expiryTimestamp, currentRound } = props;
 
   const { seconds, minutes, isRunning, start, pause, resume, restart } =
     useTimer({
       expiryTimestamp,
-      onExpire: () => console.warn('onExpire called'),
+      onExpire: () =>
+        // need to dispatch current round here
+        console.log(
+          'TODO: change current round state and set autoStart to true'
+        ),
+      autoStart: false,
     });
 
   return (
@@ -26,7 +32,7 @@ const Timer = (props: TimerProps) => {
       <button onClick={start}>Start</button>
       <button onClick={pause}>Pause</button>
       <button onClick={resume}>Resume</button>
-      <button
+      {/* <button
         onClick={() => {
           // Restarts to 5 minutes timer
           const time = new Date();
@@ -35,7 +41,7 @@ const Timer = (props: TimerProps) => {
         }}
       >
         Restart
-      </button>
+      </button> */}
     </div>
   );
 };
