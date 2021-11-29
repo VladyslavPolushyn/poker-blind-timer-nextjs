@@ -5,16 +5,18 @@ import Timer from '../src/components/Timer/Timer';
 import styles from '../styles/HomePage.module.scss';
 
 const Home: NextPage = () => {
-  const { tableData } = useSelector((state: RootState) => state);
-  console.log(tableData);
+  const { tableData, currentRound } = useSelector((state: RootState) => state);
+  console.log(tableData, currentRound);
 
   const time = new Date();
-  time.setSeconds(time.getSeconds() + 600);
+  time.setSeconds(
+    time.getSeconds() + tableData[currentRound - 1].roundTime * 60
+  );
 
   return (
     <div className={styles.HomePage}>
       <div className="container">
-        <Timer expiryTimestamp={time} />
+        <Timer expiryTimestamp={time} currentRound={currentRound} />
       </div>
     </div>
   );
