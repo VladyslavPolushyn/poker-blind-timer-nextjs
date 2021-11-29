@@ -12,14 +12,28 @@ const SettingsPage: FC = () => {
   const dispatch = useDispatch();
   const { tableData } = useSelector((state: RootState) => state);
 
+  const getRoundInfo = (
+    round: number = 1,
+    sb: number = 5,
+    bb: number = 10,
+    ante: number = 0,
+    roundTime: number = 12
+  ) => {
+    return { round, sb, bb, ante, roundTime };
+  };
+
   const addRoundHandler = () => {
-    const newRoundData = {
-      round: tableData.length + 1,
-      ante: tableData[tableData.length - 1].ante,
-      roundTime: tableData[tableData.length - 1].roundTime,
-      sb: tableData[tableData.length - 1].sb * 2,
-      bb: tableData[tableData.length - 1].bb * 2,
-    };
+    let newRoundData;
+
+    tableData.length === 0
+      ? (newRoundData = getRoundInfo())
+      : (newRoundData = getRoundInfo(
+          tableData.length + 1,
+          tableData[tableData.length - 1].sb * 2,
+          tableData[tableData.length - 1].bb * 2,
+          tableData[tableData.length - 1].ante,
+          tableData[tableData.length - 1].roundTime
+        ));
 
     dispatch(addRound(newRoundData));
   };
