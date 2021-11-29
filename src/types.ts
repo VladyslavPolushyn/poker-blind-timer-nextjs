@@ -27,4 +27,15 @@ export interface AddRoundAction {
   payload: TableData;
 }
 
-export type Actions = DeleteRoundAction | ChangeRoundAction | AddRoundAction;
+export interface ChangeCurrentRoundAction {
+  type: string;
+  payload: {
+    round: number;
+  };
+}
+
+export type Actions =
+  | DeleteRoundAction
+  | ChangeRoundAction
+  | AddRoundAction
+  | ChangeCurrentRoundAction;

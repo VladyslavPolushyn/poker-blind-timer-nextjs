@@ -21,6 +21,7 @@ const initialState = {
     getRoundInfo(9, 200, 400, 0, 12),
     getRoundInfo(10, 300, 600, 0, 12),
   ],
+  currentRound: 1,
 };
 
 export default initialState;

@@ -30,6 +30,11 @@ export default function reducer(
           return item;
         }),
       };
+    case ActionTypes.CURRENT_ROUND:
+      return {
+        ...state,
+        currentRound: action.payload.round,
+      };
     default:
       return state;
   }
