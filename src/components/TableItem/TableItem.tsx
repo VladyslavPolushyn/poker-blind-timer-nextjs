@@ -8,13 +8,7 @@ import Image from 'next/image';
 const TableItem: FC<TableData> = (props) => {
   const dispatch = useDispatch();
 
-  const {
-    round,
-    sb,
-    bb,
-    ante,
-    roundTime,
-  } = props;
+  const { round, sb, bb, ante, roundTime } = props;
 
   const inputChangeHandler = (value: string, changedField: string) => {
     value = value.replace(/[^\d]/g, '');
@@ -37,7 +31,7 @@ const TableItem: FC<TableData> = (props) => {
     }
   };
 
-  const onDeleteHandler = (itemToDeleteNumber: number) => {
+  const deleteHandler = (itemToDeleteNumber: number) => {
     dispatch(deleteRound(itemToDeleteNumber));
   };
 
@@ -79,7 +73,10 @@ const TableItem: FC<TableData> = (props) => {
         />
       </td>
       <td className={styles.TableItem__cell}>
-        <button onClick={() => onDeleteHandler(round - 1)} className={styles['TableItem__delete-button']}>
+        <button
+          onClick={() => deleteHandler(round - 1)}
+          className={styles['TableItem__delete-button']}
+        >
           <Image src="/close.svg" alt="Close" width={18} height={18} />
         </button>
       </td>
