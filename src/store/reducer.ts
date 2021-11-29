@@ -11,7 +11,7 @@ export default function reducer(
     case ActionTypes.ROUND_ADD:
       return {
         ...state,
-        tableData: state.tableData.splice(action.payload.id, 1),
+        tableData: [...state.tableData, action.payload],
       };
     case ActionTypes.ROUND_DELETE:
       return {
