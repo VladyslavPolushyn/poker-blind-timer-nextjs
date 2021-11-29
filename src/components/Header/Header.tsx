@@ -1,9 +1,28 @@
-import styles from "./Header.module.scss";
-import Link from "next/link";
-import Image from "next/image";
-import { FC } from "react";
+import styles from './Header.module.scss';
+import Link from 'next/link';
+import Image from 'next/image';
 
-const Header: FC = () => {
+type HeaderProps = {
+  isCloseIcon: boolean;
+};
+
+const Header = (props: HeaderProps) => {
+  const { isCloseIcon } = props;
+  const icon = isCloseIcon ? (
+    <Link href="/">
+      <a className={styles.Settings__link}>
+        <Image src="/close.svg" alt="Close" width={25} height={25} />
+      </a>
+    </Link>
+  ) : (
+    <Link href="/settings">
+      <a className={styles.Settings__link}>
+        <span className={styles.Settings__text}>Settings</span>
+        <Image src="/settings.svg" alt="Logo" width={30} height={30} />
+      </a>
+    </Link>
+  );
+
   return (
     <header className={styles.Header}>
       <div className={`${styles.Header__container} container`}>
@@ -16,12 +35,7 @@ const Header: FC = () => {
           </Link>
         </div>
         <div className={`${styles.Header__settings} ${styles.Settings}`}>
-          <Link href="/settings">
-            <a className={styles.Settings__link}>
-              <span className={styles.Settings__text}>Settings</span>
-              <Image src="/settings.svg" alt="Logo" width={30} height={30} />
-            </a>
-          </Link>
+          {icon}
         </div>
       </div>
     </header>

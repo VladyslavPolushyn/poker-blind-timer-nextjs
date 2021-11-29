@@ -1,41 +1,41 @@
-import { FC, useState } from "react";
-import { Tab, Table } from "react-bootstrap";
-import TableItem from "../src/components/TableItem/TableItem";
-import styles from "./../styles/SettingsPage.module.scss";
+import { FC, useState } from 'react';
+import { Table } from 'react-bootstrap';
+import Button from '../src/components/Button/Button';
+import TableItem from '../src/components/TableItem/TableItem';
+import styles from './../styles/SettingsPage.module.scss';
+import { TableData } from '../src/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'typesafe-actions';
+import { addRound } from '../src/store/actions';
 
 const SettingsPage: FC = () => {
-  const getTableItem = (
-    round: number,
-    sb: number,
-    bb: number,
-    ante: number,
-    roundTime: number
+  const dispatch = useDispatch();
+  const { tableData } = useSelector((state: RootState) => state);
+
+  const getRoundInfo = (
+    round: number = 1,
+    sb: number = 5,
+    bb: number = 10,
+    ante: number = 0,
+    roundTime: number = 12
   ) => {
-    return {
-      round,
-      sb,
-      bb,
-      ante,
-      roundTime,
-    };
+    return { round, sb, bb, ante, roundTime };
   };
 
-  const [tableData, setTableData] = useState([
-    getTableItem(1, 5, 10, 0, 12),
-    getTableItem(2, 10, 20, 0, 12),
-    getTableItem(3, 20, 40, 0, 12),
-    getTableItem(4, 25, 50, 0, 12),
-    getTableItem(5, 75, 150, 0, 12),
-    getTableItem(6, 100, 200, 0, 12),
-    getTableItem(7, 150, 300, 0, 12),
-    getTableItem(8, 200, 400, 0, 12),
-    getTableItem(9, 300, 600, 0, 12),
-    getTableItem(10, 400, 800, 0, 12),
-    getTableItem(11, 500, 1000, 0, 12),
-  ]);
+  const addRoundHandler = () => {
+    let newRoundData;
 
-  const onInputChangeHandler = (roundState: object) => {
-    console.log(roundState);
+    tableData.length === 0
+      ? (newRoundData = getRoundInfo())
+      : (newRoundData = getRoundInfo(
+          tableData.length + 1,
+          tableData[tableData.length - 1].sb * 2,
+          tableData[tableData.length - 1].bb * 2,
+          tableData[tableData.length - 1].ante,
+          tableData[tableData.length - 1].roundTime
+        ));
+
+    dispatch(addRound(newRoundData));
   };
 
   return (
@@ -44,16 +44,16 @@ const SettingsPage: FC = () => {
         <Table className={`${styles.SettingsPage__table} ${styles.Table}`}>
           <thead>
             <tr>
-              <th className={styles["Table__column-header"]}>Round</th>
-              <th className={styles["Table__column-header"]}>Small Blind</th>
-              <th className={styles["Table__column-header"]}>Big Blind</th>
-              <th className={styles["Table__column-header"]}>Ante</th>
-              <th className={styles["Table__column-header"]}>Round Time</th>
-              <th className={styles["Table__column-header"]}>Delete Round</th>
+              <th className={styles['Table__column-header']}>Round</th>
+              <th className={styles['Table__column-header']}>Small Blind</th>
+              <th className={styles['Table__column-header']}>Big Blind</th>
+              <th className={styles['Table__column-header']}>Ante</th>
+              <th className={styles['Table__column-header']}>Round Time</th>
+              <th className={styles['Table__column-header']}>Delete Round</th>
             </tr>
           </thead>
           <tbody className={styles.Table__body}>
-            {tableData.map((item) => (
+            {tableData.map((item: TableData) => (
               <TableItem
                 key={item.round}
                 round={item.round}
@@ -61,11 +61,11 @@ const SettingsPage: FC = () => {
                 bb={item.bb}
                 ante={item.ante}
                 roundTime={item.roundTime}
-                onInputChangeHandler={onInputChangeHandler}
               />
             ))}
           </tbody>
         </Table>
+        <Button clickHandler={addRoundHandler} buttonText={'Add new round'} />
       </div>
     </div>
   );

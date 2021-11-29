@@ -1,9 +1,11 @@
-@import "./global.scss";
+@import './global.scss';
 
 .SettingsPage {
   color: #fff;
   background-color: #012626;
+  padding: 20px 0 40px;
   height: calc(100vh - 60px);
+  overflow: scroll;
 }
 
 .Table {
