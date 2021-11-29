@@ -1,9 +1,9 @@
 import { TableData } from '../types';
 import { ActionTypes } from './actionTypes';
 
-export const addRound = (round: number) => ({
+export const addRound = ({ round, bb, ante, roundTime, sb }: TableData) => ({
   type: ActionTypes.ROUND_ADD,
-  payload: round,
+  payload: { round, bb, ante, roundTime, sb },
 });
 
 export const deleteRound = (id: number) => ({
