@@ -10,7 +10,8 @@ const Home: NextPage = () => {
 
   const time = new Date();
   time.setSeconds(
-    time.getSeconds() + tableData[currentRound - 1].roundTime * 60
+    // time.getSeconds() + tableData[currentRound - 1].roundTime * 60
+    time.getSeconds() + tableData[currentRound - 1].roundTime * 1
   );
 
   return (

@@ -11,7 +11,8 @@ const getRoundInfo = (
 const initialState = {
   tableData: [
     getRoundInfo(1, 5, 10, 0, 12),
-    getRoundInfo(2, 10, 20, 0, 12),
+    // TODO: change round time to 12 after next round time test
+    getRoundInfo(2, 10, 20, 0, 7),
     getRoundInfo(3, 20, 40, 0, 12),
     getRoundInfo(4, 25, 50, 0, 12),
     getRoundInfo(5, 50, 100, 0, 12),
